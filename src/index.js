@@ -83,6 +83,7 @@ class PitchAnalyser {
 
 	// Get the frequencies and return values based on options
 	analysePitch() {
+		audioSource.connect(volume);
 		audioAnalyser.getFloatFrequencyData(frequencies);
 		audioAnalyser.getByteTimeDomainData(amplitude);
 
@@ -109,9 +110,11 @@ class PitchAnalyser {
 			}
 
 			// Execute the callback. (Intended for returning the output)
+      audioSource.disconnect(volume);
 			return returnValue;
 		}
     else {
+      audioSource.disconnect(volume);
       return -1;
     }
 	}
@@ -129,8 +132,13 @@ class PitchAnalyser {
 		//
 		amplitude = new Uint8Array(audioAnalyser.frequencyBinCount);
 
+		// Create amplifier
+		volume = this.audioContext.createGain();
+
 		// Assign a stream source as main source
 		audioSource = this.audioContext.createMediaStreamSource(audioStream);
+
+		// Connect the audio to the amplifier
 
 		// Connect the audio to our analyser
 		audioSource.connect(audioAnalyser);
