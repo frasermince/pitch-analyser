@@ -129,9 +129,6 @@ class PitchAnalyser {
 		//
 		amplitude = new Uint8Array(audioAnalyser.frequencyBinCount);
 
-		// Create amplifier
-		volume = this.audioContext.createGain();
-
 		// Assign a stream source as main source
 		audioSource = this.audioContext.createMediaStreamSource(audioStream);
 
