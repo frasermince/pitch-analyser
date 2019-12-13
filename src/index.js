@@ -109,11 +109,11 @@ class PitchAnalyser {
 			}
 
 			// Execute the callback. (Intended for returning the output)
-			callback(returnValue);
+			return returnValue;
 		}
-
-		// Tells the browser we wish to perform a animation. Call callback before repaint
-		window.requestAnimationFrame(this.analysePitch);
+    else {
+      return -1;
+    }
 	}
 
 	streamReceived(stream) {
@@ -142,7 +142,6 @@ class PitchAnalyser {
 		audioSource.connect(audioAnalyser);
 
 		// Start note detection
-		this.analysePitch();
 	}
 }
 
